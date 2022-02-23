@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Confirmar</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+</head>
+
+<body>
+    <div class="container">
+        <header th:replace="fragments/header::header-main"></header>
+
+        <h1 class="display-4">Confirmación de contacto</h1>
+        <hr class="my-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Registro</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Datos recibidos</h6>
+                <hr class="my-4">
+                <label>Nombre: [[${usuario.nombre}]]</label>
+                <br />
+                <label>Apellidos: [[${usuario.apellidos}]]</label>
+                <br />
+                <label>Telefono: [[${usuario.telefono}]]</label>
+                <br />
+                <label>Correo: [[${usuario.correo}]]</label>
+            </div>
+        </div>
+    </div>
+
+
+    <script src=" https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
+
+</html>

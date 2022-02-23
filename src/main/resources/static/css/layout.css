@@ -1,0 +1,21 @@
+.nav-color{
+	background-color: greenyellow;
+}
+
+@media (max-width:576px) {
+    .nav-color {
+        background-color: blue;
+    }
+}
+
+@media screen and (orientation: landscape) {
+    .nav-color {
+        background-color: yellow;
+    }
+}
+
+@media (min-width:768px) and (max-width:992px){
+    .nav-color {
+        background-color: purple;
+    }
+}
