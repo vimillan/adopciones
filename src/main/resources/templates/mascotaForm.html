@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Confirmar</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/layout.css}">
+</head>
+
+<body>
+    <div class="container">
+        <header th:replace="fragments/header::header-main"></header>
+
+        <h1 class="display-4 text-center">Registrar mascota</h1>
+        <hr class="my-4">
+        <div class="card">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="https://images.unsplash.com/photo-1504595403659-9088ce801e29?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" class="card-img-top" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Nueva mascota</h5>
+                        <form method="post" action="/mascotas/save">
+                            <div class="form-group">
+                                <input class="form-control form-control-lg mb-3 mt-3" name="nombre" type="text"
+                                    placeholder="Ingresa su nombre">
+                                <input class="form-control form-control-lg mb-3 mt-3" name="edad" type="text"
+                                    placeholder="Ingresa la edad">
+                                <input class="form-control form-control-lg mb-3 mt-3" name="descripcion" type="text"
+                                    placeholder="Ingresa la descripción">
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input position-static" type="radio" name="tipoMascota" id="perro" value="Perro" aria-label="Perro">
+                                        <label class="form-check-label" for="perro">Perro</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input position-static" type="radio" name="tipoMascota" id="gato" value="Gato" aria-label="Gato">
+                                        <label class="form-check-label" for="gato">Gato</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input position-static" type="radio" name="disponibleAdopcion" id="disp" value="true">
+                                        <label class="form-check-label" for="disp">Disponible</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input position-static" type="radio" name="disponibleAdopcion" id="nodisp" value="false">
+                                        <label class="form-check-label" for="nodisp">No disponible</label>
+                                    </div>
+                                </div>
+                                <input class="form-control form-control-lg mb-3 mt-3" name="imagen" type="text"
+                                    placeholder="Ingresa la ruta de la imagen">
+                                <input class="form-control form-control-lg mb-3 mt-3" name="fechaRegistro" type="date"
+                                    placeholder="Ingresa la fecha de registro">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script src=" https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
+
+</html>

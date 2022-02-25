@@ -29,4 +29,11 @@ public class MascotaServiceImpl implements MascotaService {
         return lista;
     }
 
+    @Override
+    public void guardar(Mascota mascota) {
+        lista.add(mascota);
+    }
+
+    
+
 }

@@ -1,5 +1,7 @@
 package mx.edu.utez.dwpu1evaluacion.model;
 
+import java.util.Date;
+
 public class Mascota {
     private String nombre;
     private int edad;
@@ -7,6 +9,7 @@ public class Mascota {
     private String tipoMascota;
     private boolean disponibleAdopcion;
     private String imagen;
+    private Date fechaRegistro;
     
     public Mascota() {
     }
@@ -20,7 +23,27 @@ public class Mascota {
         this.disponibleAdopcion = disponibleAdopcion;
         this.imagen = imagen;
     }
+
+    public Mascota(String nombre, int edad, String descripcion, String tipoMascota, boolean disponibleAdopcion,
+            String imagen, Date fechaRegistro) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.descripcion = descripcion;
+        this.tipoMascota = tipoMascota;
+        this.disponibleAdopcion = disponibleAdopcion;
+        this.imagen = imagen;
+        this.fechaRegistro = fechaRegistro;
+    }
+
     
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 
     public String getImagen() {
         return imagen;

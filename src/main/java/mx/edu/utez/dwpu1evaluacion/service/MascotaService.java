@@ -6,4 +6,5 @@ import mx.edu.utez.dwpu1evaluacion.model.Mascota;
 
 public interface MascotaService {
     List<Mascota> listarTodas();
+    void guardar(Mascota mascota);
 }
