@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mx.edu.utez.dwpu1evaluacion.model.Mascota;
 import mx.edu.utez.dwpu1evaluacion.service.MascotaServiceImpl;
@@ -26,6 +26,7 @@ public class MascotaController {
 
     @Autowired
     private MascotaServiceImpl mascotaService;
+    String tipo;
 
     @GetMapping(value = { "/lista", "/lista/{tipoMascota}", "/lista/{tipoMascota}/{disponible}" })
     public String listarMascota(@PathVariable(required = false) String tipoMascota,
@@ -33,11 +34,8 @@ public class MascotaController {
 
         List<Mascota> listaMascota = mascotaService.listarTodas();
         List<Mascota> resultado = new ArrayList<>();
-
         if (tipoMascota != null) {
-
-            resultado = listaMascota.stream().filter(mascota -> mascota.getTipoMascota().equals(tipoMascota))
-                    .collect(Collectors.toList());
+            resultado = mascotaService.filtrarTipoMascota(tipoMascota);
             model.addAttribute("tipo", tipoMascota);
             model.addAttribute("mascotas", resultado);
             model.addAttribute("filtro", false);
@@ -49,10 +47,7 @@ public class MascotaController {
         if (disponible != null) {
             boolean disp = Boolean.parseBoolean(disponible);
             if (disp) {
-                resultado = listaMascota.stream()
-                        .filter(mascota -> mascota.isDisponibleAdopcion()
-                                && mascota.getTipoMascota().equals(tipoMascota))
-                        .collect(Collectors.toList());
+                resultado = mascotaService.filtrarMascotaDisponible(tipoMascota, disp);
             }
             model.addAttribute("filtro", disp);
             model.addAttribute("mascotas", resultado);
@@ -75,12 +70,19 @@ public class MascotaController {
         return "detailMascota";
     }
 
+    @GetMapping("/nuevaMascota/{tipoMascota}")
+    public String nuevaMascota(@PathVariable String tipoMascota, Model model) {
+        tipo = tipoMascota;
+        model.addAttribute("tipo", tipoMascota);
+        return "mascotaForm";
+    }
+
     @PostMapping("/save")
-    public String guardarMascota(Mascota mascota, Model model) {
+    public String guardarMascota(Mascota mascota, RedirectAttributes attributes) {
+        mascota.setTipoMascota(tipo);
+        attributes.addAttribute("tipoMascota", mascota.getTipoMascota());
         mascotaService.guardar(mascota);
-        List<Mascota> listaMascota = mascotaService.listarTodas();
-        model.addAttribute("mascotas", listaMascota);
-        return "listMascotas";
+        return "redirect:/mascotas/lista/{tipoMascota}";
     }
 
     @InitBinder

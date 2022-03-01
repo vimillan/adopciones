@@ -28,7 +28,8 @@
                 </div>
             </div>
             <div class="col-4">
-                <a th:href="@{/nuevaMascota}" class="btn btn-primary">Registrar</a>
+                <a th:href="@{/mascotas/nuevaMascota/{tipoMascota}(tipoMascota = ${tipo})}"
+                    class="btn btn-primary">Registrar</a>
             </div>
             <hr class="my-4">
             <div class="col-12">

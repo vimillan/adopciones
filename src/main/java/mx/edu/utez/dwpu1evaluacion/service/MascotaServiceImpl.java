@@ -2,6 +2,7 @@ package mx.edu.utez.dwpu1evaluacion.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,27 @@ public class MascotaServiceImpl implements MascotaService {
         lista.add(mascota);
     }
 
-    
+    @Override
+    public List<Mascota> filtrarTipoMascota(String tipoMascota) {
+        return lista.stream().filter(mascota -> mascota.getTipoMascota().equals(tipoMascota))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Mascota> filtrarMascotaDisponible(String tipoMascota, boolean disponible) {
+        return lista.stream()
+                .filter(mascota -> mascota.isDisponibleAdopcion()
+                        && mascota.getTipoMascota().equals(tipoMascota))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> listarImagenes() {
+        List<String> imagenes = new ArrayList<>();
+        for (Mascota m : lista) {
+            imagenes.add(m.getImagen());
+        }
+        return imagenes;
+    }
 
 }

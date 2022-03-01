@@ -17,11 +17,6 @@ public class HomeController {
         return "userForm";
     }
 
-    @GetMapping("/nuevaMascota")
-    public String nuevaMascota() {
-        return "mascotaForm";
-    }
-
     @GetMapping("/inicio")
     public String inicio(Model model) {
         model.addAttribute("tipoUsuario", usuarioSesion);
