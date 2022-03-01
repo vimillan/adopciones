@@ -73,6 +73,9 @@ public class MascotaController {
     @GetMapping("/nuevaMascota/{tipoMascota}")
     public String nuevaMascota(@PathVariable String tipoMascota, Model model) {
         tipo = tipoMascota;
+        List<String> imagenes = mascotaService.listarImagenes();
+        
+        model.addAttribute("imagenes", imagenes);
         model.addAttribute("tipo", tipoMascota);
         return "mascotaForm";
     }
