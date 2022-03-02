@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -71,7 +73,7 @@ public class MascotaController {
     }
 
     @GetMapping("/nuevaMascota/{tipoMascota}")
-    public String nuevaMascota(@PathVariable String tipoMascota, Model model) {
+    public String nuevaMascota(@PathVariable String tipoMascota, Model model, Mascota mascota) {
         tipo = tipoMascota;
         List<String> imagenes = mascotaService.listarImagenes();
         
@@ -81,8 +83,14 @@ public class MascotaController {
     }
 
     @PostMapping("/save")
-    public String guardarMascota(Mascota mascota, RedirectAttributes attributes) {
+    public String guardarMascota(Mascota mascota, BindingResult result, RedirectAttributes attributes) {
         mascota.setTipoMascota(tipo);
+        if(result.hasErrors()){
+            for (ObjectError error: result.getAllErrors()){
+                System.out.println("Error: "+ error.getDefaultMessage());
+            }
+            return "mascotaForm";
+        }
         attributes.addAttribute("tipoMascota", mascota.getTipoMascota());
         mascotaService.guardar(mascota);
         return "redirect:/mascotas/lista/{tipoMascota}";

@@ -22,7 +22,14 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">Nueva mascota</h5>
-                        <form method="post" action="/mascotas/save">
+                        <form method="post" action="/mascotas/save" th:object="${mascota}">
+                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                                Por favor solucione lo siguiente:
+                                <ul>
+                                    <li th:each="error : ${#fields.errors('*')}" th:text="${error}"></li>
+                                </ul>
+                            </div>
+
                             <div class="form-group">
                                 <input class="form-control form-control-lg mb-3 mt-3" name="nombre" type="text"
                                     placeholder="Ingresa su nombre">
@@ -46,9 +53,17 @@
                                         <label class="form-check-label" for="nodisp">No disponible</label>
                                     </div>
                                 </div>
-                                
-                                <input class="form-control form-control-lg mb-3 mt-3" name="imagen" type="text"
-                                    placeholder="Ingresa la ruta de la imagen">
+                                <select class="custom-select" name="imagen" id="imagen">
+                                    <option selected >Selecciona la imagen</option>
+                                    <option value="milka.jpg">milka.jpg</option>
+                                    <option value="canelita.jpg">canelita.jpg</option>
+                                    <option value="gato1.png">gato1.png</option>
+                                    <option value="gato2.jpg">gato2.jpg</option>
+                                    <option value="gato3.jpg">gato3.jpg</option>
+                                    <option value="salem.jpg">salem.jpg</option>
+                                    <option value="husky.jpg">husky.jpg</option>
+                                    <option value="salchicha.jpeg">salchicha.jpeg</option>
+                                </select>
                                 <input class="form-control form-control-lg mb-3 mt-3" name="fechaRegistro" type="date"
                                     placeholder="Ingresa la fecha de registro">
                             </div>
