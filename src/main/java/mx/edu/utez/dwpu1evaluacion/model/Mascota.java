@@ -2,13 +2,36 @@ package mx.edu.utez.dwpu1evaluacion.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+
 public class Mascota {
+
+    @NotBlank(message = "El nombre es requerido")
     private String nombre;
+
+    @NotNull(message = "Edad requerida")
+    @Min(0)
     private int edad;
+
+    @NotBlank(message = "La descripción es requerida")
+    @Size(min = 2, message = "Mínimo 2 caracteres")
+    @Size(max = 50, message = "Máximo 50 caracteres")
     private String descripcion;
+
+    @NotBlank(message = "El tipo es requerido")
     private String tipoMascota;
+
+    @NotNull(message = "Disponibilidad requerida")
     private boolean disponibleAdopcion;
+
+    @NotBlank(message = "La imagen es requerida")
     private String imagen;
+
+    @NotNull(message = "La fecha es requerida")
     private Date fechaRegistro;
     
     public Mascota() {

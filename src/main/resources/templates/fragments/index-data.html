@@ -1,15 +1,26 @@
 <div class="col-3 form-contacto" th:fragment="form-contact">
     <h3>Contáctanos</h3>
-    <form method="post" action="/registrar">
+    <form method="post" action="/registrar" th:object="${usuario}">
         <div class="form-group">
-            <input class="form-control form-control-lg mb-3 mt-3" name="nombre" type="text"
+            <input class="form-control form-control-lg mb-3 mt-3" th:field="*{nombre}" type="text"
                 placeholder="Ingresa tu nombre">
-            <input class="form-control form-control-lg mb-3 mt-3" name="apellidos" type="text"
+            <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="alert alert-danger">
+            </div>
+
+            <input class="form-control form-control-lg mb-3 mt-3" th:field="*{apellidos}" type="text"
                 placeholder="Ingresa tus apellidos">
-            <input class="form-control form-control-lg mb-3 mt-3" name="correo" type="text"
+            <div th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}" class="alert alert-danger">
+            </div>
+
+            <input class="form-control form-control-lg mb-3 mt-3" th:field="*{correo}" type="text"
                 placeholder="Ingresa tus correo">
-            <input class="form-control form-control-lg mb-3 mt-3" name="telefono" type="text"
+            <div th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}" class="alert alert-danger">
+            </div>
+
+            <input class="form-control form-control-lg mb-3 mt-3" th:field="*{telefono}" type="text"
                 placeholder="Ingresa tus teléfono">
+            <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="alert alert-danger">
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary">Enviar</button>
@@ -21,7 +32,8 @@
     <div class="row">
         <div class="col-12">
             <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HeiUiFWpjqQ" frameborder="0" allowfullscreen></iframe>
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/HeiUiFWpjqQ" frameborder="0"
+                    allowfullscreen></iframe>
             </div>
         </div>
     </div>

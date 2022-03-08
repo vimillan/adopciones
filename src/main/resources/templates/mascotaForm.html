@@ -23,38 +23,55 @@
                     <div class="card-body">
                         <h5 class="card-title">Nueva mascota</h5>
                         <form method="post" action="/mascotas/save" th:object="${mascota}">
-                            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                                Por favor solucione lo siguiente:
-                                <ul>
-                                    <li th:each="error : ${#fields.errors('*')}" th:text="${error}"></li>
-                                </ul>
-                            </div>
-
                             <div class="form-group">
-                                <input class="form-control form-control-lg mb-3 mt-3" name="nombre" type="text"
+                                <input class="form-control form-control-lg mb-3 mt-3" th:field="*{nombre}" type="text"
                                     placeholder="Ingresa su nombre">
-                                <input class="form-control form-control-lg mb-3 mt-3" name="edad" type="text"
+                                <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+                                    class="alert alert-danger">
+                                </div>
+                                <input class="form-control form-control-lg mb-3 mt-3" th:field="*{edad}" type="text"
                                     placeholder="Ingresa la edad">
-                                <input class="form-control form-control-lg mb-3 mt-3" name="descripcion" type="text"
-                                    placeholder="Ingresa la descripción">
-                                <div class="form-group">
-                                    <input class="form-control form-control-lg mb-3 mt-3" type="text" disabled
-                                        name="tipoMascota" id="tipoMascota" th:value="${tipo}">
+                                <div th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"
+                                    class="alert alert-danger">
+                                </div>
+                                <input class="form-control form-control-lg mb-3 mt-3" th:field="*{descripcion}"
+                                    type="text" placeholder="Ingresa la descripción">
+                                <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"
+                                    class="alert alert-danger">
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
                                         <input class="form-check-input position-static" type="radio"
-                                            name="disponibleAdopcion" id="disp" value="true">
+                                            th:field="*{tipoMascota}" id="perro" value="Perro" aria-label="Perro">
+                                        <label class="form-check-label" for="perro">Perro</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input position-static" type="radio"
+                                            th:field="*{tipoMascota}" id="gato" value="Gato" aria-label="Gato">
+                                        <label class="form-check-label" for="gato">Gato</label>
+                                    </div>
+                                </div>
+                                <div th:if="${#fields.hasErrors('tipoMascota')}" th:errors="*{tipoMascota}"
+                                    class="alert alert-danger">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input position-static" type="radio"
+                                            th:field="*{disponibleAdopcion}" id="disp" value="true">
                                         <label class="form-check-label" for="disp">Disponible</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input position-static" type="radio"
-                                            name="disponibleAdopcion" id="nodisp" value="false">
+                                            th:field="*{disponibleAdopcion}" id="nodisp" value="false">
                                         <label class="form-check-label" for="nodisp">No disponible</label>
                                     </div>
                                 </div>
-                                <select class="custom-select" name="imagen" id="imagen">
-                                    <option selected >Selecciona la imagen</option>
+                                <div th:if="${#fields.hasErrors('disponibleAdopcion')}"
+                                    th:errors="*{disponibleAdopcion}" class="alert alert-danger">
+                                </div>
+
+                                <select class="custom-select" th:field="*{imagen}" id="imagen">
                                     <option value="milka.jpg">milka.jpg</option>
                                     <option value="canelita.jpg">canelita.jpg</option>
                                     <option value="gato1.png">gato1.png</option>
@@ -64,8 +81,14 @@
                                     <option value="husky.jpg">husky.jpg</option>
                                     <option value="salchicha.jpeg">salchicha.jpeg</option>
                                 </select>
-                                <input class="form-control form-control-lg mb-3 mt-3" name="fechaRegistro" type="date"
-                                    placeholder="Ingresa la fecha de registro">
+                                <div th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"
+                                    class="alert alert-danger">
+                                </div>
+                                <input class="form-control form-control-lg mb-3 mt-3" th:field="*{fechaRegistro}"
+                                    type="date" placeholder="Ingresa la fecha de registro">
+                                <div th:if="${#fields.hasErrors('fechaRegistro')}" th:errors="*{fechaRegistro}"
+                                    class="alert alert-danger">
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Registrar</button>

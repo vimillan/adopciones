@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -74,20 +77,19 @@ public class MascotaController {
 
     @GetMapping("/nuevaMascota/{tipoMascota}")
     public String nuevaMascota(@PathVariable String tipoMascota, Model model, Mascota mascota) {
-        tipo = tipoMascota;
-        List<String> imagenes = mascotaService.listarImagenes();
-        
-        model.addAttribute("imagenes", imagenes);
-        model.addAttribute("tipo", tipoMascota);
+        //tipo = tipoMascota;
+        //List<String> imagenes = mascotaService.listarImagenes();
+        //model.addAttribute("imagenes", imagenes);
+        //model.addAttribute("tipo", tipoMascota);
         return "mascotaForm";
     }
 
     @PostMapping("/save")
-    public String guardarMascota(Mascota mascota, BindingResult result, RedirectAttributes attributes) {
-        mascota.setTipoMascota(tipo);
-        if(result.hasErrors()){
-            for (ObjectError error: result.getAllErrors()){
-                System.out.println("Error: "+ error.getDefaultMessage());
+    public String guardarMascota(@Valid @ModelAttribute("mascota") Mascota mascota, BindingResult result,
+            RedirectAttributes attributes, Model model) {
+        if (result.hasErrors()) {
+            for (ObjectError error : result.getAllErrors()) {
+                System.out.println("Error: " + error.getDefaultMessage());
             }
             return "mascotaForm";
         }

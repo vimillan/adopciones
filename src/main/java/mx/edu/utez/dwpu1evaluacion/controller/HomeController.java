@@ -1,8 +1,13 @@
 package mx.edu.utez.dwpu1evaluacion.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,30 +23,29 @@ public class HomeController {
     }
 
     @GetMapping("/inicio")
-    public String inicio(Model model) {
+    public String inicio(Model model, Usuario usuario) {
         model.addAttribute("tipoUsuario", usuarioSesion);
         return "index";
     }
 
     @PostMapping("/iniciarSesion")
-    public String iniciarSesion(@RequestParam ("tipoUsuario") String tipoUsuario,  Model model) {
+    public String iniciarSesion(@RequestParam("tipoUsuario") String tipoUsuario, Usuario usuario, Model model) {
         usuarioSesion = tipoUsuario;
         model.addAttribute("tipoUsuario", usuarioSesion);
         return "index";
     }
-   
+
     @PostMapping("/registrar")
-    public String reguistrarUsuario(@RequestParam ("nombre") String nombre,
-            @RequestParam("telefono") String telefono, @RequestParam("apellidos") String apellidos,
-            @RequestParam("correo") String correo, Model model) {
-        Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setApellidos(apellidos);
-        usuario.setTelefono(telefono);
-        usuario.setCorreo(correo);
-        
+    public String reguistrarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result,
+            Model model) {
         model.addAttribute("usuario", usuario);
+        if (result.hasErrors()) {
+            for (ObjectError error : result.getAllErrors()) {
+                System.out.println("Error: " + error.getDefaultMessage());
+            }
+            return "index";
+        }
         return "confirmContacto";
     }
-    
+
 }

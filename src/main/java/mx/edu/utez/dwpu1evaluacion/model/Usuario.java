@@ -1,9 +1,22 @@
 package mx.edu.utez.dwpu1evaluacion.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 public class Usuario {
+    
+    @NotBlank(message = "El nombre es requerido")
+    @Pattern(regexp = "[a-zA-Z]+", message = "Debe contener al menos una letra")
     private String nombre;
+
+    @NotBlank(message = "Apellidos requeridos")
     private String apellidos;
+
+    @NotBlank(message = "El teléfono es requerido")
+    @Pattern(regexp = "[0-9]+", message = "Debe contener sólo números")
     private String telefono;
+
+    @NotBlank(message = "El correo es requerido")
     private String correo;
     
     public Usuario() {
