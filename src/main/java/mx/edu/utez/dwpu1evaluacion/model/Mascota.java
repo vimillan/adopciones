@@ -34,7 +34,24 @@ public class Mascota {
     @NotNull(message = "La fecha es requerida")
     private Date fechaRegistro;
     
+    private Caracter caracter;
+
+    private Color color;
+
+    
     public Mascota() {
+    }
+
+    public Mascota(String nombre, int edad, String descripcion, String tipoMascota, boolean disponibleAdopcion,
+            String imagen, Caracter caracter, Color color) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.descripcion = descripcion;
+        this.tipoMascota = tipoMascota;
+        this.disponibleAdopcion = disponibleAdopcion;
+        this.imagen = imagen;
+        this.caracter = caracter;
+        this.color = color;
     }
 
     public Mascota(String nombre, int edad, String descripcion, String tipoMascota, boolean disponibleAdopcion,
@@ -48,6 +65,17 @@ public class Mascota {
     }
 
     public Mascota(String nombre, int edad, String descripcion, String tipoMascota, boolean disponibleAdopcion,
+            String imagen, Caracter caracter) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.descripcion = descripcion;
+        this.tipoMascota = tipoMascota;
+        this.disponibleAdopcion = disponibleAdopcion;
+        this.imagen = imagen;
+        this.caracter = caracter;
+    }
+
+    public Mascota(String nombre, int edad, String descripcion, String tipoMascota, boolean disponibleAdopcion,
             String imagen, Date fechaRegistro) {
         this.nombre = nombre;
         this.edad = edad;
@@ -58,7 +86,22 @@ public class Mascota {
         this.fechaRegistro = fechaRegistro;
     }
 
-    
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Caracter getCaracter() {
+        return caracter;
+    }
+
+    public void setCaracter(Caracter caracter) {
+        this.caracter = caracter;
+    }
 
     public Date getFechaRegistro() {
         return fechaRegistro;

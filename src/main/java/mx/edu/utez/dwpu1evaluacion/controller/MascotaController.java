@@ -21,7 +21,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import mx.edu.utez.dwpu1evaluacion.model.Caracter;
+import mx.edu.utez.dwpu1evaluacion.model.Color;
 import mx.edu.utez.dwpu1evaluacion.model.Mascota;
+import mx.edu.utez.dwpu1evaluacion.service.CarcterServiceImp;
+import mx.edu.utez.dwpu1evaluacion.service.ColorServiceImp;
 import mx.edu.utez.dwpu1evaluacion.service.MascotaServiceImpl;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,8 +34,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MascotaController {
 
     @Autowired
+    private CarcterServiceImp caracterService;
+
+    @Autowired
     private MascotaServiceImpl mascotaService;
     String tipo;
+
+    @Autowired
+    private ColorServiceImp colorService;
 
     @GetMapping(value = { "/lista", "/lista/{tipoMascota}", "/lista/{tipoMascota}/{disponible}" })
     public String listarMascota(@PathVariable(required = false) String tipoMascota,
@@ -77,10 +87,11 @@ public class MascotaController {
 
     @GetMapping("/nuevaMascota/{tipoMascota}")
     public String nuevaMascota(@PathVariable String tipoMascota, Model model, Mascota mascota) {
-        //tipo = tipoMascota;
-        //List<String> imagenes = mascotaService.listarImagenes();
-        //model.addAttribute("imagenes", imagenes);
-        //model.addAttribute("tipo", tipoMascota);
+        List<Caracter> listaCaracter = caracterService.listarTodos();
+        List<Color> listaColor = colorService.listarTodos();
+
+        model.addAttribute("listaColor", listaColor);
+        model.addAttribute("listaCaracter", listaCaracter);
         return "mascotaForm";
     }
 
@@ -93,7 +104,12 @@ public class MascotaController {
             }
             return "mascotaForm";
         }
+
+        mascota.setCaracter(caracterService.buscarPorId(mascota.getCaracter().getId()));
+        mascota.setColor(colorService.buscarPorId(mascota.getColor().getId()));
+        
         attributes.addAttribute("tipoMascota", mascota.getTipoMascota());
+        attributes.addFlashAttribute("msg_success", "Registro exitoso");
         mascotaService.guardar(mascota);
         return "redirect:/mascotas/lista/{tipoMascota}";
     }

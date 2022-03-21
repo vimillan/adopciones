@@ -71,7 +71,7 @@
                                     th:errors="*{disponibleAdopcion}" class="alert alert-danger">
                                 </div>
 
-                                <select class="custom-select" th:field="*{imagen}" id="imagen">
+                                <select class="form-control form-control-lg mb-3" th:field="*{imagen}" id="imagen">
                                     <option value="milka.jpg">milka.jpg</option>
                                     <option value="canelita.jpg">canelita.jpg</option>
                                     <option value="gato1.png">gato1.png</option>
@@ -89,6 +89,21 @@
                                 <div th:if="${#fields.hasErrors('fechaRegistro')}" th:errors="*{fechaRegistro}"
                                     class="alert alert-danger">
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Carácter</label>
+                                    <select class="form-control form-control-lg mb-3" th:field="*{caracter.id}">
+                                        <option th:each="c : ${listaCaracter}" th:value="${c.id}" th:text="${c.nombre}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Color</label>
+                                    <select class="form-control form-control-lg mb-3" th:field="*{color.id}">
+                                        <option th:each="c1 : ${listaColor}" th:value="${c1.id}" th:text="${c1.nombre}"></option>
+                                    </select>
+                                </div>
+                                
                             </div>
 
                             <button type="submit" class="btn btn-primary">Registrar</button>
